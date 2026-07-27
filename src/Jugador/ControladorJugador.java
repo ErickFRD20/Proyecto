@@ -9,5 +9,11 @@ package Jugador;
  * @author josed
  */
 public class ControladorJugador {
+    private Jugador jugador;
+    private Cronometro cronometro;
     
+    public ControladorJugador(){
+        jugador = new Jugador();
+        cronometro = new Cronometro();
+    }
 }
