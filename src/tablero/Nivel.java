@@ -8,6 +8,8 @@ package tablero;
  *
  * @author UTN
  */
-public class Nivel {
-    
+public enum Nivel {
+    PRINCIPIANTE,
+    INTERMEDIO,
+    AVANZADO
 }
