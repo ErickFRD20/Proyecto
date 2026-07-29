@@ -9,7 +9,19 @@ package tablero;
  * @author UTN
  */
 public enum Nivel {
-    PRINCIPIANTE,
-    INTERMEDIO,
-    AVANZADO
+    PRINCIPIANTE(8),
+    INTERMEDIO(16),
+    AVANZADO(32);
+    
+    private final int totalParejas;
+
+    private Nivel(int totalParejas) {
+        this.totalParejas = totalParejas;
+    }
+    
+    
+    public int getTotalParejas() {
+        return totalParejas;
+    }
+    
 }
