@@ -14,9 +14,7 @@ import tablero.Tablero;
 public class ControladorJuego {
     private Juego juego;
     
-    public ControladorJuego(){
-        juego = new Juego();
-    }    
+   
     public Juego getJuego() {
         return juego;
     }
@@ -29,7 +27,16 @@ public class ControladorJuego {
     public int getIntentos(){
         return juego.getIntentos();
     }
-    
+    public int getParejas(){
+        return juego.getParejas();
+    }
+    public int getTiempo(){
+        return juego.getTiempo();
+    }
+    public ControladorJuego(){
+    juego = new Juego();
+    } 
+        
     
     public void iniciarJuego(){
         juego.iniciarPartida();
@@ -43,5 +50,10 @@ public class ControladorJuego {
     public void seleccionarCarta(int fila, int columna){
         juego.seleccionarCarta(fila, columna);
     }
-    
+    public void ocultarCartas(){
+        juego.ocultarCartas();
+    }
+    public boolean juegoFinalizado(){
+        return juego.juegoFinalizado();
+    }
 }
