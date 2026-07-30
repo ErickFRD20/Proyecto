@@ -14,10 +14,17 @@ public class Tablero {
 
     public Tablero(Nivel nivel) {
         this.nivel = nivel;
+        crearTablero();
     }
     
     public void crearTablero(){
-        
+        if(nivel == Nivel.PRINCIPIANTE){
+            tablero = new Carta[4][4];
+        }else if(nivel == nivel.INTERMEDIO){
+            tablero = new Carta[4][8];
+        }else if(nivel == Nivel.AVANZADO){
+            tablero = new Carta[8][8];
+        }
     }
     
     public void distribuirParejas(){
