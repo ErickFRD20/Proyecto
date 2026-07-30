@@ -16,4 +16,42 @@ public class ControladorJugador {
         jugador = new Jugador();
         cronometro = new Cronometro();
     }
+   public void iniciarJuego(){
+       jugador.reiniciar();
+       cronometro.reiniciar();
+       cronometro.iniciar();
+   }
+   public void registrarIntento(){
+       jugador.registrarIntentos();
+   }
+   public void encontrarPareja(){
+       jugador.registrarPareja();
+   }
+   
+   public void detenerJuego(){
+       cronometro.detener();
+   }
+   public void aumentarTiempo(){
+       cronometro.aumentarSegundo();
+   }
+   
+   public void reiniciarJuego(){
+       jugador.reiniciar();
+       cronometro.reiniciar();
+   }
+   public int getPuntaje(){
+    return jugador.getIntentos();
+   }
+   
+   public int getIntentos(){
+       return jugador.getIntentos();
+   }
+   public int getParejas(){
+       return jugador.getParejasEncontradas();
+   }
+   public int getTiempo(){
+       return cronometro.getSegundos();
+   }
+   
 }
+   
