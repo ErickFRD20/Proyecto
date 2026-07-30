@@ -66,8 +66,19 @@ public class Tablero {
         return tablero[fila][columna]; 
     }
     
+    public boolean compararCartas(Carta carta1, Carta carta2){
+        return carta1.getImagen() == carta2.getImagen();
+    }
+    
     public boolean juegoFinalizado(){ 
-        return false;
+            for (int fila = 0; fila < tablero.length; fila++) {
+                for (int columna = 0; columna < tablero[fila].length; columna++) {
+                    if (!tablero[fila][columna].isEncontrada()) {
+                        return false;
+                    }
+                }
+        }
+            return true;
     }
     
     public void reiniciar(){
