@@ -22,8 +22,39 @@ public class Juego {
     private Carta segundaCarta;
     private boolean bloqueado;
 
+    public Tablero getTablero() {
+        return tablero;
+    }
 
+    public Nivel getNivel() {
+        return nivel;
+    }
     
+    public ControladorJugador getControladorJugador(){
+        return controladorJugador;
+    }
+    
+    public int getPuntaje(){
+        return controladorJugador.getPuntaje();
+    }
+    
+    public int getIntentos(){
+        return controladorJugador.getIntentos();
+    }
+    
+    public int getParejas(){
+        return controladorJugador.getParejas();
+    }
+    
+    public int getTiempo(){
+        return controladorJugador.getTiempo();
+    }
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+
     public Juego(){
         nivel = Nivel.PRINCIPIANTE;
         tablero = new Tablero(nivel);
@@ -87,10 +118,19 @@ public class Juego {
     }
     
     public void ocultarCartas(){
-        
+        if(primeraCarta !=null){
+            primeraCarta.ocultar();
+        }
+        if(segundaCarta != null){
+            segundaCarta.ocultar();
+        }
+        primeraCarta = null;
+        segundaCarta = null;
+        bloqueado = false;
     }
-    public boolean juegoFinalizado(){
-        return false;
+    
+    public boolean juegoFinalizado(){  
+        return tablero.juegoFinalizado();
     }
     
 }
