@@ -32,18 +32,22 @@ public class Carta {
     }
     
     public void mostrar(){
-        
+        visible = true;
     }
     
     public void ocultar(){
-        
+        if (!encontrada) {
+            visible = false;
+        }
     }
     
     public void encontrar(){
-        
+        encontrada = true;
+        visible = true;
     }
     
     public void reiniciar(){
-        
+        visible = false;
+        encontrada = false;
     }
 }
