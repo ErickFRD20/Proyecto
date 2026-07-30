@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tablero;
-
+import java.util.Random;
 /**
  *
  * @author UTN
@@ -15,6 +15,7 @@ public class Tablero {
     public Tablero(Nivel nivel) {
         this.nivel = nivel;
         crearTablero();
+        distribuirParejas();
     }
     
     public void crearTablero(){
@@ -28,7 +29,37 @@ public class Tablero {
     }
     
     public void distribuirParejas(){
+        int totalParejas = nivel.getTotalParejas();
+        int[] imagenes = new int[totalParejas * 2];
+        int posicion =0;
         
+        //este metodo crea dos imagenes iguales por cada pareja
+        for (int i = 1; i <= totalParejas; i++) {
+            imagenes[posicion] = i;
+            posicion++;
+            
+            imagenes[posicion] = i;
+            posicion++;
+        }
+        
+        //este metodo mezcla las imagenes
+        Random aleatorio = new Random();
+        
+        for (int i = 0; i < imagenes.length; i++) {
+            int posicionAleatoria = aleatorio.nextInt(imagenes.length);
+            int auxiliar = imagenes[i];
+            imagenes[i] = imagenes[posicionAleatoria];
+            imagenes[posicionAleatoria] = auxiliar;
+        }
+        
+        //este metodo coloca las imagenes dentro de la matriz
+        posicion = 0;
+        for (int fila = 0; fila < tablero.length; fila++) {
+            for (int columna = 0; columna < tablero[fila].length; columna++) {
+                tablero[fila][columna] = new Carta(imagenes[posicion]);
+                posicion++;
+            }
+        }
     }
     
     public Carta obtenerCarta(int fila, int columna){
