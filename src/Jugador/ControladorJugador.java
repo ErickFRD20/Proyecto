@@ -40,7 +40,7 @@ public class ControladorJugador {
        cronometro.reiniciar();
    }
    public int getPuntaje(){
-    return jugador.getIntentos();
+    return jugador.getPuntaje();
    }
    
    public int getIntentos(){
@@ -52,6 +52,10 @@ public class ControladorJugador {
    public int getTiempo(){
        return cronometro.getSegundos();
    }
+   public Cronometro getCronometro(){
+       return cronometro;
+   }
+   
    
 }
    
