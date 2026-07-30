@@ -20,7 +20,7 @@ public class Tablero {
     public void crearTablero(){
         if(nivel == Nivel.PRINCIPIANTE){
             tablero = new Carta[4][4];
-        }else if(nivel == nivel.INTERMEDIO){
+        }else if(nivel == Nivel.INTERMEDIO){
             tablero = new Carta[4][8];
         }else if(nivel == Nivel.AVANZADO){
             tablero = new Carta[8][8];
@@ -32,7 +32,7 @@ public class Tablero {
     }
     
     public Carta obtenerCarta(int fila, int columna){
-        return null; 
+        return tablero[fila][columna]; 
     }
     
     public boolean juegoFinalizado(){ 
