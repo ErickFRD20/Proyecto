@@ -4,6 +4,8 @@
  */
 package proyecto.progra;
 
+import Interfazjuego.FrmInterfazJuego;
+
 /**
  *
  * @author erick
@@ -15,6 +17,8 @@ public class ProyectoProgra {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        FrmInterfazJuego interfaz = new FrmInterfazJuego();
+        interfaz.setVisible(true);
     }
     
 }

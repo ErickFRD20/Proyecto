@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfazjuego;
+
+import javax.swing.JButton;
+import juego.Juego;
+import tablero.Carta;
+import tablero.Nivel;
+
 /**
  *
  * @author Dylan
@@ -11,18 +17,70 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmInterfazJuego.class.getName());
 
-  
+    private Nivel nivelActual = Nivel.PRINCIPIANTE; 
+    private JButton[][] botonesTablero;
+    private Juego juego;
+
+    
+    
+    
+    
     /**
      * Creates new form frmVista
      */
     public FrmInterfazJuego() {
+        initComponents();
+        OrdenBotonesTablero();
+        juego = new Juego(nivelActual);
         
     }
     
         
     
+   //Metodos funcionales
+   //Se meten los botones a la matriz
+    private void OrdenBotonesTablero(){
+        botonesTablero = new JButton[][]{
+         {btns33, btns34, btns25, btns26, btns27, btns28, btns49, btns50},
+        {btns35, btns36, btns29, btns30, btns31, btns32, btns51, btns52},
+        {btns37, btns38, btns1,  btns2,  btns3,  btns4,  btns53, btns54},
+        {btns39, btns40, btns5,  btns6,  btns7,  btns8,  btns55, btns56},
+        {btns41, btns42, btns9,  btns10, btns11, btns12, btns57, btns58},
+        {btns43, btns44, btns13, btns14, btns15, btns16, btns59, btns60},
+        {btns45, btns46, btns17, btns18, btns19, btns20, btns61, btns62},
+        {btns47, btns48, btns21, btns22, btns23, btns24, btns63, btns64}   
+        };
+    }
     
+    private void actualizarCarta(int fila, int columna) {
+    Carta carta = juego.seleccionarCarta(fila, columna);
+    javax.swing.JButton boton = botonesTablero[fila][columna];
 
+    if (carta.isVisible() || carta.isEncontrada()) {
+        boton.setIcon(new javax.swing.ImageIcon(
+            getClass().getResource("/imagenes/" + carta.getImagen() + ".png")));
+    } else {
+        boton.setIcon(null);
+        }
+    }
+    
+    private void posicionCarta(int fila, int columna){
+        juego.seleccionarCarta(fila, columna);
+        actualizarCarta(fila,columna);
+        actualizarStats();       
+    }
+    
+    
+    //----------------------------------------
+    public void actualizarStats(){
+        lblValorPuntaje.setText(String.valueOf(juego.getPuntaje()));
+        lblValorIntentos.setText(String.valueOf(juego.getIntentos()));
+        lblValorParejas.setText(juego.getParejasEncontradas() +"/"+ (nivelActual.getTotalParejas()));
+        lblValorTiempo.setText(String.valueOf(juego.getTiempoTranscurrido()));        
+    }
+    
+    
+    
     
             
 
@@ -319,33 +377,83 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns50);
 
         btns35.setActionCommand("35");
+        btns35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns35ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns35);
 
         btns36.setActionCommand("36");
+        btns36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns36ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns36);
 
         btns29.setActionCommand("29");
+        btns29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns29ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns29);
 
         btns30.setActionCommand("30");
+        btns30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns30ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns30);
 
         btns31.setActionCommand("31");
+        btns31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns31ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns31);
 
         btns32.setActionCommand("32");
+        btns32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns32ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns32);
 
         btns51.setActionCommand("51");
+        btns51.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns51ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns51);
 
         btns52.setActionCommand("52");
+        btns52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns52ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns52);
 
         btns37.setActionCommand("37");
+        btns37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns37ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns37);
 
         btns38.setActionCommand("38");
+        btns38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns38ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns38);
 
         btns1.setActionCommand("1");
@@ -357,9 +465,19 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns1);
 
         btns2.setActionCommand("2");
+        btns2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns2ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns2);
 
         btns3.setActionCommand("3");
+        btns3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns3ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns3);
 
         btns4.setActionCommand("4");
@@ -371,21 +489,51 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns4);
 
         btns53.setActionCommand("53");
+        btns53.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns53ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns53);
 
         btns54.setActionCommand("54");
+        btns54.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns54ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns54);
 
         btns39.setActionCommand("39");
+        btns39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns39ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns39);
 
         btns40.setActionCommand("40");
+        btns40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns40ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns40);
 
         btns5.setActionCommand("5");
+        btns5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns5ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns5);
 
         btns6.setActionCommand("6");
+        btns6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns6ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns6);
 
         btns7.setActionCommand("7");
@@ -397,15 +545,35 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns7);
 
         btns8.setActionCommand("8");
+        btns8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns8ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns8);
 
         btns55.setActionCommand("55");
+        btns55.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns55ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns55);
 
         btns56.setActionCommand("56");
+        btns56.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns56ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns56);
 
         btns41.setActionCommand("41");
+        btns41.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns41ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns41);
 
         btns42.setActionCommand("42");
@@ -417,9 +585,19 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns42);
 
         btns9.setActionCommand("9");
+        btns9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns9ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns9);
 
         btns10.setActionCommand("10");
+        btns10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns10ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns10);
 
         btns11.setActionCommand("11");
@@ -431,27 +609,67 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns11);
 
         btns12.setActionCommand("12");
+        btns12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns12ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns12);
 
         btns57.setActionCommand("57");
+        btns57.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns57ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns57);
 
         btns58.setActionCommand("58");
+        btns58.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns58ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns58);
 
         btns43.setActionCommand("43");
+        btns43.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns43ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns43);
 
         btns44.setActionCommand("44");
+        btns44.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns44ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns44);
 
         btns13.setActionCommand("13");
+        btns13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns13ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns13);
 
         btns14.setActionCommand("14");
+        btns14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns14ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns14);
 
         btns15.setActionCommand("15");
+        btns15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns15ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns15);
 
         btns16.setActionCommand("16");
@@ -463,12 +681,27 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns16);
 
         btns59.setActionCommand("59");
+        btns59.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns59ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns59);
 
         btns60.setActionCommand("60");
+        btns60.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns60ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns60);
 
         btns45.setActionCommand("45");
+        btns45.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns45ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns45);
 
         btns46.setActionCommand("46");
@@ -480,33 +713,83 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns46);
 
         btns17.setActionCommand("17");
+        btns17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns17ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns17);
 
         btns18.setActionCommand("18");
+        btns18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns18ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns18);
 
         btns19.setActionCommand("19");
+        btns19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns19ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns19);
 
         btns20.setActionCommand("20");
+        btns20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns20ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns20);
 
         btns61.setActionCommand("61");
+        btns61.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns61ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns61);
 
         btns62.setActionCommand("62");
+        btns62.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns62ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns62);
 
         btns47.setActionCommand("47");
+        btns47.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns47ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns47);
 
         btns48.setActionCommand("48");
+        btns48.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns48ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns48);
 
         btns21.setActionCommand("21");
+        btns21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns21ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns21);
 
         btns22.setActionCommand("22");
+        btns22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns22ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns22);
 
         btns23.setActionCommand("23");
@@ -518,9 +801,19 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns23);
 
         btns24.setActionCommand("24");
+        btns24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns24ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns24);
 
         btns63.setActionCommand("63");
+        btns63.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns63ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns63);
 
         btns64.setActionCommand("64");
@@ -554,87 +847,339 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         // TODO add your handling code here:
+        reiniciarNivel();
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void rbAvanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAvanzadoActionPerformed
         // TODO add your handling code here:
+        cambiarNivel(Nivel.AVANZADO);
     }//GEN-LAST:event_rbAvanzadoActionPerformed
 
     private void rbIntermedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIntermedioActionPerformed
         // TODO add your handling code here:
+        cambiarNivel(Nivel.INTERMEDIO);
     }//GEN-LAST:event_rbIntermedioActionPerformed
 
     private void rbPrincipianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPrincipianteActionPerformed
         // TODO add your handling code here:
+        cambiarNivel(Nivel.PRINCIPIANTE);
     }//GEN-LAST:event_rbPrincipianteActionPerformed
 
     private void btns4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns4ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(2, 5);   // btns4
     }//GEN-LAST:event_btns4ActionPerformed
 
     private void btns7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns7ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(3, 4);   // btns7
     }//GEN-LAST:event_btns7ActionPerformed
 
     private void btns16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns16ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(5, 5);   // btns16
     }//GEN-LAST:event_btns16ActionPerformed
 
     private void btns23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns23ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(7, 4);   // btns23
+// TODO add your handling code here:
     }//GEN-LAST:event_btns23ActionPerformed
 
     private void btns1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns1ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(2, 2);   // btns1
+// TODO add your handling code here:
     }//GEN-LAST:event_btns1ActionPerformed
 
     private void btns26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns26ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 3);   // btns26
+// TODO add your handling code here:
     }//GEN-LAST:event_btns26ActionPerformed
 
     private void btns34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns34ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 1);   // btns34
+// TODO add your handling code here:
     }//GEN-LAST:event_btns34ActionPerformed
 
     private void btns64ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns64ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(7, 7);   // btns64
+// TODO add your handling code here:
     }//GEN-LAST:event_btns64ActionPerformed
 
     private void btns11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns11ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(4, 4);   // btns11
+// TODO add your handling code here:
     }//GEN-LAST:event_btns11ActionPerformed
 
     private void btns33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns33ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 0);   // btns33
+// TODO add your handling code here:
     }//GEN-LAST:event_btns33ActionPerformed
 
     private void btns42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns42ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(4, 1);   // btns42
+// TODO add your handling code here:
     }//GEN-LAST:event_btns42ActionPerformed
 
     private void btns46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns46ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(6, 1);   // btns46
+// TODO add your handling code here:
     }//GEN-LAST:event_btns46ActionPerformed
 
     private void btns25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns25ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 2);   // btns25
+// TODO add your handling code here:
     }//GEN-LAST:event_btns25ActionPerformed
 
     private void btns27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns27ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 4);   // btns27
+// TODO add your handling code here:
     }//GEN-LAST:event_btns27ActionPerformed
 
     private void btns28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns28ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 5);   // btns28
+// TODO add your handling code here:
     }//GEN-LAST:event_btns28ActionPerformed
 
     private void btns49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns49ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 6);   // btns49
+// TODO add your handling code here:
     }//GEN-LAST:event_btns49ActionPerformed
 
     private void btns50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns50ActionPerformed
-        // TODO add your handling code here:
+        posicionCarta(0, 7);   // btns50
+// TODO add your handling code here:
     }//GEN-LAST:event_btns50ActionPerformed
+
+    private void btns35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns35ActionPerformed
+        posicionCarta(1, 0);   // btns35
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns35ActionPerformed
+
+    private void btns36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns36ActionPerformed
+        posicionCarta(1, 1);   // btns36
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns36ActionPerformed
+
+    private void btns29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns29ActionPerformed
+        posicionCarta(1, 2);   // btns29
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns29ActionPerformed
+
+    private void btns30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns30ActionPerformed
+        posicionCarta(1, 3);   // btns30
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns30ActionPerformed
+
+    private void btns31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns31ActionPerformed
+        posicionCarta(1, 4);   // btns31
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns31ActionPerformed
+
+    private void btns32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns32ActionPerformed
+        posicionCarta(1, 5);   // btns32
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns32ActionPerformed
+
+    private void btns51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns51ActionPerformed
+        posicionCarta(1, 6);   // btns51
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns51ActionPerformed
+
+    private void btns52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns52ActionPerformed
+        posicionCarta(1, 7);   // btns52
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns52ActionPerformed
+
+    private void btns37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns37ActionPerformed
+        posicionCarta(2, 0);   // btns37
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns37ActionPerformed
+
+    private void btns38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns38ActionPerformed
+        posicionCarta(2, 1);   // btns38
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns38ActionPerformed
+
+    private void btns2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns2ActionPerformed
+        posicionCarta(2, 3);   // btns2
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns2ActionPerformed
+
+    private void btns3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns3ActionPerformed
+        posicionCarta(2, 4);   // btns3
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns3ActionPerformed
+
+    private void btns53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns53ActionPerformed
+        posicionCarta(2, 6);   // btns53
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns53ActionPerformed
+
+    private void btns54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns54ActionPerformed
+        posicionCarta(2, 7);   // btns54
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns54ActionPerformed
+
+    private void btns39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns39ActionPerformed
+        posicionCarta(3, 0);   // btns39
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns39ActionPerformed
+
+    private void btns40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns40ActionPerformed
+        posicionCarta(3, 1);   // btns40
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns40ActionPerformed
+
+    private void btns5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns5ActionPerformed
+        posicionCarta(3, 2);   // btns5
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns5ActionPerformed
+
+    private void btns6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns6ActionPerformed
+        posicionCarta(3, 3);   // btns6
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns6ActionPerformed
+
+    private void btns8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns8ActionPerformed
+        posicionCarta(3, 5);   // btns8
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns8ActionPerformed
+
+    private void btns55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns55ActionPerformed
+        posicionCarta(3, 6);   // btns55
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns55ActionPerformed
+
+    private void btns56ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns56ActionPerformed
+        posicionCarta(3, 7);   // btns56
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns56ActionPerformed
+
+    private void btns41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns41ActionPerformed
+        posicionCarta(4, 0);   // btns41
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns41ActionPerformed
+
+    private void btns9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns9ActionPerformed
+        posicionCarta(4, 2);   // btns9
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns9ActionPerformed
+
+    private void btns10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns10ActionPerformed
+        posicionCarta(4, 3);   // btns10
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns10ActionPerformed
+
+    private void btns12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns12ActionPerformed
+        posicionCarta(4, 5);   // btns12
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns12ActionPerformed
+
+    private void btns57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns57ActionPerformed
+        posicionCarta(4, 6);   // btns57
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns57ActionPerformed
+
+    private void btns58ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns58ActionPerformed
+        posicionCarta(4, 7);   // btns58
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns58ActionPerformed
+
+    private void btns43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns43ActionPerformed
+        posicionCarta(5, 0);   // btns43
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns43ActionPerformed
+
+    private void btns44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns44ActionPerformed
+        posicionCarta(5, 1);   // btns44
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns44ActionPerformed
+
+    private void btns17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns17ActionPerformed
+        posicionCarta(6, 2);   // btns17
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns17ActionPerformed
+
+    private void btns13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns13ActionPerformed
+        posicionCarta(5, 2);   // btns13
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns13ActionPerformed
+
+    private void btns14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns14ActionPerformed
+        posicionCarta(5, 3);   // btns14
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns14ActionPerformed
+
+    private void btns15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns15ActionPerformed
+        posicionCarta(5, 4);   // btns15
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns15ActionPerformed
+
+    private void btns59ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns59ActionPerformed
+        posicionCarta(5, 6);   // btns59
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns59ActionPerformed
+
+    private void btns60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns60ActionPerformed
+        posicionCarta(5, 7);   // btns60
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns60ActionPerformed
+
+    private void btns45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns45ActionPerformed
+        posicionCarta(6, 0);   // btns45
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns45ActionPerformed
+
+    private void btns18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns18ActionPerformed
+        posicionCarta(6, 3);   // btns18
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns18ActionPerformed
+
+    private void btns19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns19ActionPerformed
+        posicionCarta(6, 4);   // btns19
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns19ActionPerformed
+
+    private void btns20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns20ActionPerformed
+        posicionCarta(6, 5);   // btns20
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns20ActionPerformed
+
+    private void btns61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns61ActionPerformed
+        posicionCarta(6, 6);   // btns61
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns61ActionPerformed
+
+    private void btns62ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns62ActionPerformed
+        posicionCarta(6, 7);   // btns62
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns62ActionPerformed
+
+    private void btns47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns47ActionPerformed
+        posicionCarta(7, 0);   // btns47
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns47ActionPerformed
+
+    private void btns48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns48ActionPerformed
+        posicionCarta(7, 1);   // btns48
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns48ActionPerformed
+
+    private void btns21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns21ActionPerformed
+        posicionCarta(7, 2);   // btns21
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns21ActionPerformed
+
+    private void btns22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns22ActionPerformed
+        posicionCarta(7, 3);   // btns22
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns22ActionPerformed
+
+    private void btns24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns24ActionPerformed
+        posicionCarta(7, 5);   // btns24
+// TODO add your handling code here:
+    }//GEN-LAST:event_btns24ActionPerformed
+
+    private void btns63ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns63ActionPerformed
+        posicionCarta(7, 6);   // btns63// TODO add your handling code here:
+    }//GEN-LAST:event_btns63ActionPerformed
 
     /**
      * @param args the command line arguments
