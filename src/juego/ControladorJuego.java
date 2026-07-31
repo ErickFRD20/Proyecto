@@ -28,7 +28,7 @@ public class ControladorJuego {
         return juego.getIntentos();
     }
     public int getParejas(){
-        returnmn juego.getParejas();
+        return juego.getParejas();
     }
     public int getTiempo(){
         return juego.getTiempo();
