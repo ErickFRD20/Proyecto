@@ -31,8 +31,9 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
     public FrmInterfazJuego() {
         initComponents();
         OrdenBotonesTablero();
-        juego = new Juego(nivelActual);
-        
+        juego = new Juego();
+        mostrarBotonesNivel();
+        iniciarTiempo();
     }
     
         
@@ -52,33 +53,115 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         };
     }
     
-    private void actualizarCarta(int fila, int columna) {
-    Carta carta = juego.seleccionarCarta(fila, columna);
-    javax.swing.JButton boton = botonesTablero[fila][columna];
-
+   private void actualizarCarta(int fila, int columna) {
+    Carta carta = juego.obtenerCarta(fila, columna);
+    JButton boton = botonesTablero[fila][columna];
+    
     if (carta.isVisible() || carta.isEncontrada()) {
-        boton.setIcon(new javax.swing.ImageIcon(
-            getClass().getResource("/imagenes/" + carta.getImagen() + ".png")));
+        java.net.URL recurso = getClass().getResource("/imagenes/imagen " + carta.getImagen() + ".jpeg");
+        if (recurso != null) {
+            boton.setIcon(new javax.swing.ImageIcon(recurso));
+        } else {
+            boton.setIcon(null);
+        }
     } else {
         boton.setIcon(null);
+    }
+}
+    
+    private void actualizarTablero() {
+    int filas = filaNivel();
+    int columnas = columnaNivel();
+    for (int fila = 0; fila < filas; fila++) {
+        for (int columna = 0; columna < columnas; columna++) {
+            actualizarCarta(fila, columna);
         }
     }
+}
     
     private void posicionCarta(int fila, int columna){
         juego.seleccionarCarta(fila, columna);
         actualizarCarta(fila,columna);
-        actualizarStats();       
+        actualizarStats();  
+        
+        if (juego.isBloqueado()) {
+        javax.swing.Timer timer = new javax.swing.Timer(2000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                juego.ocultarCartas();
+                actualizarTablero();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+        } 
+        if (juego.juegoFinalizado()) {
+        mostrarPantallaFinal();
+        }
     }
     
+    private void mostrarBotonesNivel(){
+    int filas = filaNivel();
+    int columnas = columnaNivel();
+
+    for (int fila = 0; fila < botonesTablero.length; fila++){
+        for (int columna = 0; columna < botonesTablero[fila].length; columna++){
+            botonesTablero[fila][columna].setVisible(fila < filas && columna < columnas);
+        }
+    }
+}
     
-    //----------------------------------------
+    private void iniciarTiempo(){
+    javax.swing.Timer timerReloj = new javax.swing.Timer(1000, new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            juego.getControladorJugador().aumentarTiempo();
+            lblValorTiempo.setText(String.valueOf(juego.getTiempo()));
+        }
+    });
+    timerReloj.start();
+    }
+    
+    public int filaNivel(){
+        if (nivelActual == Nivel.AVANZADO) {
+        return 8;
+    }else {
+        return 4;
+        }
+    }
+    
+    public int columnaNivel(){
+        if (nivelActual == Nivel.PRINCIPIANTE) {
+        return 4;
+    }else {
+        return 8;
+        }
+    }
+    
+    public void mostrarPantallaFinal(){
+       javax.swing.JOptionPane.showMessageDialog(this,
+        "--Felicidades, has terminado el juego de parejas--\n\n" +
+        "Tu puntaje es: " + juego.getPuntaje() + "\n" +
+        "Tus Intentos son: " + juego.getIntentos() + "\n" +
+        "Tu Tiempo fue: " + juego.getTiempo() + " segundos",
+        "Juego terminado",
+        javax.swing.JOptionPane.INFORMATION_MESSAGE); 
+    }
+    
     public void actualizarStats(){
         lblValorPuntaje.setText(String.valueOf(juego.getPuntaje()));
         lblValorIntentos.setText(String.valueOf(juego.getIntentos()));
-        lblValorParejas.setText(juego.getParejasEncontradas() +"/"+ (nivelActual.getTotalParejas()));
-        lblValorTiempo.setText(String.valueOf(juego.getTiempoTranscurrido()));        
+        lblValorParejas.setText(juego.getParejas() +"/"+ (nivelActual.getTotalParejas()));
+        lblValorTiempo.setText(String.valueOf(juego.getTiempo()));        
     }
     
+    public void cambiarNivel(Nivel nuevoNivel){
+        nivelActual = nuevoNivel;
+        juego.cambiarNivel(nivelActual);
+        mostrarBotonesNivel();
+        actualizarTablero();
+        actualizarStats();
+    }
     
     
     
@@ -847,7 +930,10 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
         // TODO add your handling code here:
-        reiniciarNivel();
+        juego.reiniciarPartida();
+        actualizarTablero();
+        actualizarStats();
+        
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void rbAvanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAvanzadoActionPerformed
@@ -862,7 +948,7 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
 
     private void rbPrincipianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPrincipianteActionPerformed
         // TODO add your handling code here:
-        cambiarNivel(Nivel.PRINCIPIANTE);
+        cambiarNivel(Nivel.PRINCIPIANTE);        
     }//GEN-LAST:event_rbPrincipianteActionPerformed
 
     private void btns4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns4ActionPerformed
