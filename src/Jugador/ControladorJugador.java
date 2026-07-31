@@ -38,6 +38,7 @@ public class ControladorJugador {
    public void reiniciarJuego(){
        jugador.reiniciar();
        cronometro.reiniciar();
+       cronometro.iniciar();
    }
    public int getPuntaje(){
     return jugador.getPuntaje();
@@ -55,6 +56,7 @@ public class ControladorJugador {
    public Cronometro getCronometro(){
        return cronometro;
    }
+   
    
    
 }
