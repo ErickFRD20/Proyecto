@@ -128,6 +128,9 @@ public class Juego {
         segundaCarta = null;
         bloqueado = false;
     }
+    public Carta obtenerCarta(int fila,int columna){
+        return tablero.obtenerCarta(fila, columna);
+    }
     
     public boolean juegoFinalizado(){  
         return tablero.juegoFinalizado();
