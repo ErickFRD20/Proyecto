@@ -24,12 +24,6 @@ public class Carta {
     public boolean isEncontrada() {
         return encontrada;
     }
-
-    public Carta(int imagen) {
-        this.imagen = imagen;
-        this.visible = false;
-        this.encontrada = false;
-    }
     
     public void mostrar(){
         visible = true;
@@ -49,5 +43,11 @@ public class Carta {
     public void reiniciar(){
         visible = false;
         encontrada = false;
+    }
+    
+    public Carta(int imagen) {
+        this.imagen = imagen;
+        this.visible = false;
+        this.encontrada = false;
     }
 }

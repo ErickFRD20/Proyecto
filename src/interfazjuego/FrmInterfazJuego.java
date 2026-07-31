@@ -328,6 +328,11 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
         panelTablero.add(btns29);
 
         btns30.setActionCommand("30");
+        btns30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btns30ActionPerformed(evt);
+            }
+        });
         panelTablero.add(btns30);
 
         btns31.setActionCommand("31");
@@ -635,6 +640,10 @@ public class FrmInterfazJuego extends javax.swing.JFrame {
     private void btns50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns50ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btns50ActionPerformed
+
+    private void btns30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btns30ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btns30ActionPerformed
 
     /**
      * @param args the command line arguments

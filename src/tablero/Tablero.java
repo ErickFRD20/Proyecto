@@ -82,6 +82,7 @@ public class Tablero {
     }
     
     public void reiniciar(){
-        
+        crearTablero();
+        distribuirParejas();
     }
 }
